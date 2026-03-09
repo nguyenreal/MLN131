@@ -2,171 +2,142 @@
 import { useState, useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
 
-interface Message {
-  role: "user" | "assistant";
-  content: string;
-  timestamp?: Date;
-}
+interface Msg { role: "user" | "assistant"; content: string; }
 
-const SUGGESTED_QUESTIONS = [
-  "Đổi Mới năm 1986 là gì và tại sao quan trọng?",
-  "Khoán 10 đã thay đổi nông nghiệp Việt Nam như thế nào?",
-  "Đại hội VI có những quyết sách gì về kinh tế?",
-  "Việt Nam mở cửa thị trường như thế nào từ 1986?",
-  "Đại hội VII thông qua Cương lĩnh gì năm 1991?",
-  "Tại sao Việt Nam rút quân khỏi Campuchia năm 1989?",
-  "Lạm phát và khủng hoảng kinh tế trước Đổi Mới ra sao?",
-  "Đổi Mới chính trị dưới thời kỳ 1986-1991 có gì?",
+const SUGGESTED = [
+  "Đổi Mới là gì? Tại sao Đảng phải đổi mới?",
+  "Khoán 10 có tác động thế nào đến nông nghiệp?",
+  "Đại hội VI diễn ra trong bối cảnh nào?",
+  "Vì sao Việt Nam rút quân khỏi Campuchia năm 1989?",
+  "Cương lĩnh 1991 có nội dung cốt lõi gì?",
 ];
 
 export default function HoiDapPage() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content: "Xin chào! 👋 Tôi là trợ lý AI chuyên về Lịch sử Đảng Cộng sản Việt Nam giai đoạn Đổi Mới 1986–1991.\n\nBạn có thể hỏi tôi bất kỳ câu hỏi nào về:\n• Đường lối và chính sách Đổi Mới\n• Các Đại hội Đảng (VI & VII)\n• Chính sách kinh tế: Khoán 10, FDI, xóa bao cấp\n• Đối ngoại: rút quân Campuchia, bình thường hóa quan hệ\n• Kết quả, thành tựu và ý nghĩa lịch sử\n\nHãy đặt câu hỏi để bắt đầu! 📚",
-      timestamp: new Date()
-    }
-  ]);
+  const [msgs, setMsgs] = useState<Msg[]>([{
+    role: "assistant",
+    content: "Xin chào! Tôi là trợ lý AI chuyên về Lịch sử Đảng Cộng sản Việt Nam giai đoạn 1986–1991.\n\nBạn có thể hỏi tôi về bất kỳ sự kiện, chính sách hoặc nhân vật lịch sử nào trong giai đoạn Đổi Mới.",
+  }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
+  const F = { fontFamily: "'Be Vietnam Pro', sans-serif" };
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs]);
 
-  const sendMessage = async (text?: string) => {
-    const userMsg = (text || input).trim();
-    if (!userMsg || loading) return;
+  const send = async (text: string) => {
+    if (!text.trim() || loading) return;
     setInput("");
-
-    const newMessages: Message[] = [...messages, { role: "user", content: userMsg, timestamp: new Date() }];
-    setMessages(newMessages);
+    setMsgs(p => [...p, { role: "user", content: text }]);
     setLoading(true);
-
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: newMessages.map(m => ({ role: m.role, content: m.content }))
-        })
+      const r = await fetch("/api/chat", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [...msgs, { role: "user", content: text }] }),
       });
-      const data = await res.json();
-      setMessages(prev => [...prev, { role: "assistant", content: data.content, timestamp: new Date() }]);
+      const d = await r.json();
+      setMsgs(p => [...p, { role: "assistant", content: d.content }]);
     } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: "Xin lỗi, có lỗi kết nối. Vui lòng thử lại!", timestamp: new Date() }]);
+      setMsgs(p => [...p, { role: "assistant", content: "Có lỗi xảy ra. Vui lòng thử lại." }]);
     }
     setLoading(false);
   };
 
-  const formatTime = (d?: Date) => d ? d.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) : "";
-
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#FEF9E7" }}>
+    <div style={{ minHeight: "100vh", background: "#F8F1E0", display: "flex", flexDirection: "column" }}>
       <Navbar />
 
-      {/* Header */}
-      <div style={{ background: "linear-gradient(135deg, #1a3c6b, #2980B9, #3498DB)", padding: "2rem 0" }}>
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="flex justify-center gap-2 mb-2">{[...Array(5)].map((_, i) => <span key={i} style={{ color: "#F39C12", fontSize: "1.1rem" }}>★</span>)}</div>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "2rem", color: "#FEF9E7" }}>
-            Hỏi Đáp AI Lịch Sử
+      <div style={{ background: "linear-gradient(to right, #6B1410, #B5261E)", padding: "48px 0 40px" }}>
+        <div style={{ maxWidth: 760, margin: "0 auto", padding: "0 24px", textAlign: "center" }}>
+          <p style={{ ...F, fontWeight: 600, fontSize: "0.72rem", color: "rgba(240,188,74,0.8)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 12 }}>
+            Trí Tuệ Nhân Tạo
+          </p>
+          <h1 style={{ ...F, fontWeight: 900, fontSize: "clamp(1.8rem,5vw,2.8rem)", color: "white", lineHeight: 1.2 }}>
+            Hỏi Đáp Lịch Sử
           </h1>
-          <p style={{ color: "#b8d9f5", fontSize: "0.95rem", marginTop: "0.4rem" }}>
-            Đặt câu hỏi về Lịch sử Đảng 1986–1991 – nhận giải đáp chi tiết ngay
+          <p style={{ ...F, color: "rgba(255,255,255,0.65)", fontSize: "0.95rem", marginTop: 10 }}>
+            Đặt câu hỏi về Đảng và giai đoạn Đổi Mới 1986–1991
           </p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-6 flex-1 flex flex-col md:flex-row gap-6">
-        {/* Sidebar suggestions */}
-        <div className="md:w-64 flex-shrink-0">
-          <div className="rounded-2xl shadow-md p-4" style={{ background: "white", border: "1px solid #e8d5a3", position: "sticky", top: "120px" }}>
-            <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "#2980B9", marginBottom: "0.75rem", fontSize: "0.95rem" }}>
-              💡 Gợi ý câu hỏi
-            </h3>
-            <div className="space-y-2">
-              {SUGGESTED_QUESTIONS.map((q, i) => (
-                <button
-                  key={i}
-                  onClick={() => sendMessage(q)}
-                  disabled={loading}
-                  className="text-left w-full text-xs p-2 rounded-lg transition-all"
-                  style={{ background: "#f0f7ff", color: "#2980B9", border: "1px solid #d6e9fa", lineHeight: 1.4 }}
-                >
-                  {q}
+      <div style={{ flex: 1, maxWidth: 760, width: "100%", margin: "0 auto", padding: "32px 24px", display: "flex", flexDirection: "column", gap: 20 }}>
+
+        {/* Gợi ý câu hỏi */}
+        {msgs.length <= 1 && (
+          <div>
+            <p style={{ ...F, fontWeight: 600, fontSize: "0.8rem", color: "#7A6A54", marginBottom: 10, letterSpacing: "0.05em" }}>
+              GỢI Ý CÂU HỎI
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {SUGGESTED.map((s, i) => (
+                <button key={i} onClick={() => send(s)} style={{
+                  ...F, padding: "8px 16px", borderRadius: 4,
+                  border: "1.5px solid #D4982A40", background: "white",
+                  fontWeight: 500, fontSize: "0.83rem", color: "#5A4A30",
+                  cursor: "pointer", textAlign: "left",
+                  transition: "border-color 0.2s, background 0.2s",
+                }}>
+                  {s}
                 </button>
               ))}
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Chat area */}
-        <div className="flex-1 flex flex-col">
-          <div className="rounded-2xl shadow-md flex-1 flex flex-col overflow-hidden" style={{ background: "white", border: "1px solid #e8d5a3" }}>
-            {/* Messages */}
-            <div style={{ flex: 1, overflowY: "auto", padding: "1.5rem", minHeight: "400px", maxHeight: "520px" }} className="space-y-4">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"} gap-3`}>
-                  {m.role === "assistant" && (
-                    <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-sm" style={{ background: "#2980B9", color: "white" }}>🤖</div>
-                  )}
-                  <div>
-                    <div
-                      className={m.role === "user" ? "chat-bubble-user" : "chat-bubble-bot"}
-                      style={{ padding: "0.75rem 1rem", fontSize: "0.9rem", lineHeight: 1.65, whiteSpace: "pre-wrap", maxWidth: "440px" }}
-                    >
-                      {m.content}
-                    </div>
-                    <div style={{ fontSize: "0.7rem", color: "#aaa", marginTop: "3px", textAlign: m.role === "user" ? "right" : "left" }}>
-                      {formatTime(m.timestamp)}
-                    </div>
+        {/* Khung chat */}
+        <div style={{ flex: 1, background: "white", borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", minHeight: 400 }}>
+          <div style={{ flex: 1, overflowY: "auto", padding: "20px", display: "flex", flexDirection: "column", gap: 14 }}>
+            {msgs.map((m, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", gap: 10, alignItems: "flex-start" }}>
+                {m.role === "assistant" && (
+                  <div style={{ width: 30, height: 30, borderRadius: 4, background: "#B5261E", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ ...F, fontWeight: 800, fontSize: "0.65rem", color: "white" }}>AI</span>
                   </div>
-                  {m.role === "user" && (
-                    <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-sm" style={{ background: "#C0392B", color: "white" }}>👤</div>
-                  )}
+                )}
+                <div className={m.role === "user" ? "bbl-u" : "bbl-b"} style={F}>
+                  {m.content}
                 </div>
-              ))}
-              {loading && (
-                <div className="flex justify-start gap-3">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm" style={{ background: "#2980B9", color: "white" }}>🤖</div>
-                  <div className="chat-bubble-bot" style={{ padding: "0.75rem 1rem" }}>
-                    <span className="typing-dot" />
-                    <span className="typing-dot" />
-                    <span className="typing-dot" />
-                  </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Input */}
-            <div style={{ padding: "1rem", borderTop: "1px solid #e8d5a3", background: "#fafafa" }}>
-              <div className="flex gap-3 items-end">
-                <textarea
-                  ref={textareaRef}
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-                  placeholder="Đặt câu hỏi về lịch sử Đảng 1986–1991... (Enter để gửi)"
-                  rows={2}
-                  disabled={loading}
-                  style={{ flex: 1, border: "2px solid #e8d5a3", borderRadius: "12px", padding: "0.65rem 1rem", fontSize: "0.9rem", outline: "none", resize: "none", background: "#FEF9E7", lineHeight: 1.5 }}
-                />
-                <button
-                  onClick={() => sendMessage()}
-                  disabled={loading || !input.trim()}
-                  style={{ background: loading ? "#ccc" : "#2980B9", color: "white", border: "none", borderRadius: "12px", padding: "0.65rem 1.25rem", fontSize: "1rem", cursor: loading ? "not-allowed" : "pointer", height: "64px", flexShrink: 0, fontWeight: 700 }}
-                >
-                  ➤
-                </button>
               </div>
-              <p style={{ fontSize: "0.7rem", color: "#aaa", marginTop: "6px" }}>
-                💬 Powered by Claude AI • Nội dung dựa trên giáo trình Lịch sử Đảng CSVN
-              </p>
-            </div>
+            ))}
+            {loading && (
+              <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                <div style={{ width: 30, height: 30, borderRadius: 4, background: "#B5261E", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ ...F, fontWeight: 800, fontSize: "0.65rem", color: "white" }}>AI</span>
+                </div>
+                <div className="bbl-b typing-dot"><span /><span /><span /></div>
+              </div>
+            )}
+            <div ref={endRef} />
+          </div>
+
+          {/* Input */}
+          <div style={{ borderTop: "1px solid #EDE0C4", padding: "14px 16px", display: "flex", gap: 10 }}>
+            <input
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && send(input)}
+              placeholder="Đặt câu hỏi về lịch sử Đổi Mới..."
+              disabled={loading}
+              style={{
+                ...F, flex: 1, border: "1.5px solid #ddd5be",
+                borderRadius: 4, padding: "10px 14px",
+                fontSize: "0.92rem", outline: "none",
+                background: "#F8F1E0", color: "#1C1008",
+              }}
+            />
+            <button
+              onClick={() => send(input)}
+              disabled={loading || !input.trim()}
+              style={{
+                ...F, padding: "10px 22px", borderRadius: 4, border: "none",
+                background: !input.trim() || loading ? "#ddd" : "#B5261E",
+                color: "white", fontWeight: 700, fontSize: "0.9rem",
+                cursor: !input.trim() || loading ? "not-allowed" : "pointer",
+                flexShrink: 0,
+              }}
+            >
+              Gửi
+            </button>
           </div>
         </div>
       </div>
