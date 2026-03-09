@@ -3,170 +3,121 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import ChatBox from "../components/ChatBox";
 
-const QUIZ_QUESTIONS = [
-  {
-    q: "Đại hội Đảng lần thứ VI diễn ra vào tháng nào, năm nào?",
-    options: ["Tháng 12/1985", "Tháng 12/1986", "Tháng 6/1987", "Tháng 3/1986"],
-    correct: 1,
-    explain: "Đại hội Đảng lần VI diễn ra từ ngày 15 đến 18 tháng 12 năm 1986 tại Hà Nội, chính thức khởi xướng đường lối Đổi Mới."
-  },
-  {
-    q: "Nghị quyết 10 (Khoán 10) của Bộ Chính trị ban hành năm nào?",
-    options: ["1986", "1987", "1988", "1989"],
-    correct: 2,
-    explain: "Nghị quyết 10/NQ-TW của Bộ Chính trị ban hành tháng 4/1988, giao quyền sử dụng đất lâu dài cho hộ nông dân."
-  },
-  {
-    q: "Việt Nam hoàn thành rút quân khỏi Campuchia vào tháng nào năm 1989?",
-    options: ["Tháng 1", "Tháng 6", "Tháng 9", "Tháng 12"],
-    correct: 2,
-    explain: "Tháng 9/1989, Việt Nam hoàn thành việc rút toàn bộ quân tình nguyện khỏi Campuchia, mở đường bình thường hóa quan hệ quốc tế."
-  },
-  {
-    q: "Luật Đầu tư nước ngoài đầu tiên của Việt Nam được ban hành năm nào?",
-    options: ["1986", "1987", "1988", "1990"],
-    correct: 1,
-    explain: "Năm 1987, Quốc hội Việt Nam ban hành Luật Đầu tư nước ngoài đầu tiên, mở cửa thu hút vốn FDI từ các nước."
-  },
-  {
-    q: "Đại hội Đảng lần VII thông qua văn kiện quan trọng nào?",
-    options: ["Hiến pháp 1992", "Cương lĩnh xây dựng đất nước 1991", "Luật Doanh nghiệp", "Nghị quyết Trung ương 6"],
-    correct: 1,
-    explain: "Đại hội VII (6/1991) thông qua Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội – văn kiện nền tảng định hướng con đường phát triển Việt Nam."
-  },
-  {
-    q: "Slogan nổi tiếng của Đại hội VI về tinh thần nhìn nhận thực tế là gì?",
-    options: [
-      "Tiến nhanh, tiến mạnh lên CNXH",
-      "Nhìn thẳng vào sự thật, đánh giá đúng sự thật, nói rõ sự thật",
-      "Công nghiệp hóa, hiện đại hóa đất nước",
-      "Dân giàu, nước mạnh, xã hội công bằng"
-    ],
-    correct: 1,
-    explain: "Đại hội VI (1986) đề ra tinh thần 'Nhìn thẳng vào sự thật, đánh giá đúng sự thật, nói rõ sự thật' – biểu hiện của dân chủ và tư duy đổi mới."
-  }
+const QUIZ = [
+  { q: "Đại hội Đảng lần thứ VI diễn ra vào tháng nào, năm nào?", opts: ["Tháng 12/1985","Tháng 12/1986","Tháng 6/1987","Tháng 3/1986"], ans: 1, exp: "Đại hội VI diễn ra từ ngày 15 đến 18 tháng 12 năm 1986 tại Hà Nội, chính thức khởi xướng đường lối Đổi Mới." },
+  { q: "Nghị quyết 10 (Khoán 10) của Bộ Chính trị ban hành năm nào?", opts: ["1986","1987","1988","1989"], ans: 2, exp: "Nghị quyết 10/NQ-TW ban hành tháng 4/1988, giao quyền sử dụng đất lâu dài cho hộ nông dân." },
+  { q: "Việt Nam hoàn thành rút quân khỏi Campuchia vào tháng mấy năm 1989?", opts: ["Tháng 1","Tháng 6","Tháng 9","Tháng 12"], ans: 2, exp: "Tháng 9/1989, Việt Nam hoàn thành rút toàn bộ quân tình nguyện khỏi Campuchia." },
+  { q: "Luật Đầu tư nước ngoài đầu tiên của Việt Nam được ban hành năm nào?", opts: ["1986","1987","1988","1990"], ans: 1, exp: "Năm 1987, Quốc hội ban hành Luật Đầu tư nước ngoài đầu tiên, mở cửa thu hút vốn FDI." },
+  { q: "Đại hội VII thông qua văn kiện quan trọng nào?", opts: ["Hiến pháp 1992","Cương lĩnh xây dựng đất nước 1991","Luật Doanh nghiệp","Nghị quyết Trung ương 6"], ans: 1, exp: "Đại hội VII (6/1991) thông qua Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội." },
+  { q: "Tinh thần nổi bật của Đại hội VI về nhìn nhận thực tế là gì?", opts: ["Tiến nhanh, tiến mạnh lên chủ nghĩa xã hội","Nhìn thẳng vào sự thật, đánh giá đúng sự thật, nói rõ sự thật","Công nghiệp hóa, hiện đại hóa đất nước","Dân giàu, nước mạnh, xã hội công bằng"], ans: 1, exp: "Đại hội VI đề ra tinh thần nhìn thẳng vào sự thật, đánh giá đúng thực trạng đất nước — biểu hiện của dân chủ và đổi mới tư duy." },
 ];
 
-const FILL_BLANKS = [
-  { sentence: "Đại hội Đảng lần ____ khởi xướng đường lối Đổi Mới vào năm 1986.", answer: "VI", hint: "Số La Mã của số 6" },
-  { sentence: "Nghị quyết ____ của Bộ Chính trị năm 1988 giao đất cho nông dân.", answer: "10", hint: "Còn gọi là 'Khoán mười'" },
-  { sentence: "Việt Nam xuất khẩu ____ thành công vào năm 1989 nhờ Khoán 10.", answer: "gạo", hint: "Lương thực chủ yếu" },
-  { sentence: "Đại hội ____ của Đảng năm 1991 thông qua Cương lĩnh xây dựng đất nước.", answer: "VII", hint: "Số La Mã của số 7" },
+const FILL = [
+  { s: "Đại hội Đảng lần ____ khởi xướng đường lối Đổi Mới vào năm 1986.", ans: "VI", hint: "Số La Mã của số 6" },
+  { s: "Nghị quyết ____ của Bộ Chính trị năm 1988 giao đất cho nông dân.", ans: "10", hint: "Còn gọi là Khoán mười" },
+  { s: "Việt Nam xuất khẩu ____ thành công vào năm 1989 nhờ Khoán 10.", ans: "gạo", hint: "Lương thực chủ yếu" },
+  { s: "Đại hội ____ của Đảng năm 1991 thông qua Cương lĩnh xây dựng đất nước.", ans: "VII", hint: "Số La Mã của số 7" },
 ];
 
 export default function TroChoiPage() {
-  const [showChat, setShowChat] = useState(false);
-  const [activeGame, setActiveGame] = useState<"quiz" | "fill" | null>(null);
-
-  // Quiz state
-  const [quizIdx, setQuizIdx] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
+  const [chat, setChat] = useState(false);
+  const [game, setGame] = useState<"quiz"|"fill"|null>(null);
+  const [qi, setQi] = useState(0);
+  const [sel, setSel] = useState<number|null>(null);
   const [score, setScore] = useState(0);
-  const [quizDone, setQuizDone] = useState(false);
+  const [done, setDone] = useState(false);
+  const [fills, setFills] = useState(FILL.map(() => ""));
+  const [checked, setChecked] = useState(false);
 
-  // Fill state
-  const [fillAnswers, setFillAnswers] = useState<string[]>(FILL_BLANKS.map(() => ""));
-  const [fillChecked, setFillChecked] = useState(false);
-
-  const handleQuizAnswer = (idx: number) => {
-    if (selected !== null) return;
-    setSelected(idx);
-    if (idx === QUIZ_QUESTIONS[quizIdx].correct) setScore(s => s + 1);
+  const pick = (i: number) => {
+    if (sel !== null) return;
+    setSel(i);
+    if (i === QUIZ[qi].ans) setScore(s => s + 1);
   };
-
-  const nextQuestion = () => {
-    if (quizIdx + 1 >= QUIZ_QUESTIONS.length) {
-      setQuizDone(true);
-    } else {
-      setQuizIdx(i => i + 1);
-      setSelected(null);
-    }
+  const next = () => {
+    if (qi + 1 >= QUIZ.length) { setDone(true); } else { setQi(q => q + 1); setSel(null); }
   };
+  const reset = () => { setQi(0); setSel(null); setScore(0); setDone(false); };
 
-  const resetQuiz = () => {
-    setQuizIdx(0); setSelected(null); setScore(0); setQuizDone(false);
-  };
+  const fillOk = FILL.filter((f, i) => fills[i].trim().toLowerCase() === f.ans.toLowerCase()).length;
 
-  const fillCorrect = FILL_BLANKS.filter((f, i) => fillAnswers[i].trim().toLowerCase() === f.answer.toLowerCase()).length;
-
-  const GAMES = [
-    { id: "quiz", icon: "🎯", title: "Trắc Nghiệm Lịch Sử", desc: `${QUIZ_QUESTIONS.length} câu hỏi về giai đoạn Đổi Mới 1986–1991`, color: "#C0392B" },
-    { id: "fill", icon: "✏️", title: "Điền Vào Chỗ Trống", desc: `${FILL_BLANKS.length} câu hoàn thành kiến thức lịch sử`, color: "#27AE60" },
-  ];
+  const S = { fontFamily: "'Be Vietnam Pro', sans-serif" };
 
   return (
-    <div className="min-h-screen" style={{ background: "#FEF9E7" }}>
+    <div style={{ minHeight: "100vh", background: "#FDF6E3" }}>
       <Navbar />
 
-      <div style={{ background: "linear-gradient(135deg, #1a5c2a, #27AE60, #2ECC71)", padding: "3rem 0" }}>
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="flex justify-center gap-2 mb-3">{[...Array(5)].map((_, i) => <span key={i} style={{ color: "#F39C12", fontSize: "1.3rem" }}>★</span>)}</div>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "2.2rem", color: "#FEF9E7" }}>
+      <div style={{ background: "linear-gradient(135deg, #0F4A1F, #1E6B38)", padding: "56px 0 48px" }}>
+        <div style={{ maxWidth: 700, margin: "0 auto", padding: "0 24px", textAlign: "center" }}>
+          <h1 style={{ ...S, fontWeight: 900, fontSize: "clamp(1.8rem,5vw,2.8rem)", color: "white", lineHeight: 1.2 }}>
             Trò Chơi Lịch Sử
           </h1>
-          <p style={{ color: "#d4f5d4", fontSize: "1rem", marginTop: "0.5rem" }}>
-            Học mà chơi, chơi mà học – kiểm tra kiến thức về Đổi Mới 1986–1991
+          <p style={{ ...S, color: "rgba(255,255,255,0.7)", fontSize: "1rem", marginTop: 10 }}>
+            Học mà chơi, chơi mà học — kiểm tra kiến thức về Đổi Mới 1986–1991
           </p>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-10">
-        {!activeGame && (
-          <div className="grid md:grid-cols-2 gap-6">
-            {GAMES.map(game => (
-              <button
-                key={game.id}
-                onClick={() => setActiveGame(game.id as any)}
-                className="p-8 rounded-2xl text-center card-hover shadow-md"
-                style={{ background: "white", border: `2px solid ${game.color}30` }}
-              >
-                <div className="text-5xl mb-4">{game.icon}</div>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "1.3rem", color: game.color }}>{game.title}</h3>
-                <p style={{ color: "#666", fontSize: "0.9rem", marginTop: "0.5rem" }}>{game.desc}</p>
-                <div className="mt-4 inline-block px-5 py-2 rounded-full text-sm font-bold" style={{ background: game.color, color: "white" }}>
-                  Chơi ngay ▶
-                </div>
+      <div style={{ maxWidth: 720, margin: "0 auto", padding: "48px 24px" }}>
+        {!game && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            {[
+              { id: "quiz", title: "Trắc Nghiệm", desc: `${QUIZ.length} câu hỏi về giai đoạn Đổi Mới`, color: "#A93226" },
+              { id: "fill", title: "Điền Vào Chỗ Trống", desc: `${FILL.length} câu hoàn thành kiến thức`, color: "#1E6B38" },
+            ].map(g => (
+              <button key={g.id} onClick={() => setGame(g.id as any)} style={{
+                background: "white", border: `2px solid ${g.color}20`,
+                borderRadius: 14, padding: "36px 24px", cursor: "pointer",
+                textAlign: "center",
+                transition: "transform 0.2s, box-shadow 0.2s",
+              }}>
+                <div style={{ width: 40, height: 4, background: g.color, borderRadius: 2, margin: "0 auto 16px" }} />
+                <h3 style={{ ...S, fontWeight: 800, fontSize: "1.15rem", color: g.color, marginBottom: 8 }}>{g.title}</h3>
+                <p style={{ ...S, color: "#666", fontSize: "0.9rem" }}>{g.desc}</p>
+                <div style={{ ...S, marginTop: 16, fontWeight: 700, fontSize: "0.85rem", color: g.color }}>Bắt đầu</div>
               </button>
             ))}
           </div>
         )}
 
-        {/* QUIZ GAME */}
-        {activeGame === "quiz" && !quizDone && (
-          <div className="rounded-2xl shadow-lg overflow-hidden" style={{ background: "white" }}>
-            <div style={{ background: "linear-gradient(135deg, #922B21, #C0392B)", padding: "1.5rem" }}>
-              <div className="flex justify-between items-center">
-                <span style={{ color: "#F39C12", fontWeight: 700 }}>🎯 Câu {quizIdx + 1}/{QUIZ_QUESTIONS.length}</span>
-                <span style={{ color: "#fde8e8" }}>Điểm: {score}</span>
+        {/* QUIZ */}
+        {game === "quiz" && !done && (
+          <div style={{ background: "white", borderRadius: 16, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}>
+            <div style={{ background: "linear-gradient(135deg, #7B1A12, #A93226)", padding: "20px 24px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ ...S, color: "#F5C842", fontWeight: 700 }}>Câu {qi+1}/{QUIZ.length}</span>
+                <span style={{ ...S, color: "rgba(255,255,255,0.8)", fontSize: "0.9rem" }}>Điểm: {score}</span>
               </div>
-              <div className="w-full rounded-full mt-2" style={{ background: "rgba(255,255,255,0.2)", height: "6px" }}>
-                <div className="rounded-full h-full" style={{ background: "#F39C12", width: `${((quizIdx + 1) / QUIZ_QUESTIONS.length) * 100}%`, transition: "width 0.5s" }} />
+              <div style={{ height: 4, background: "rgba(255,255,255,0.2)", borderRadius: 2, marginTop: 10 }}>
+                <div style={{ height: "100%", background: "#F5C842", borderRadius: 2, width: `${((qi+1)/QUIZ.length)*100}%`, transition: "width 0.5s" }} />
               </div>
             </div>
-            <div style={{ padding: "2rem" }}>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", fontWeight: 700, color: "#2C3E50", lineHeight: 1.5, marginBottom: "1.5rem" }}>
-                {QUIZ_QUESTIONS[quizIdx].q}
+            <div style={{ padding: "28px 24px" }}>
+              <h3 style={{ ...S, fontWeight: 700, fontSize: "1.1rem", color: "#1A1A1A", lineHeight: 1.5, marginBottom: 20 }}>
+                {QUIZ[qi].q}
               </h3>
-              <div className="space-y-3">
-                {QUIZ_QUESTIONS[quizIdx].options.map((opt, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleQuizAnswer(i)}
-                    className={`quiz-option w-full ${selected !== null ? (i === QUIZ_QUESTIONS[quizIdx].correct ? "correct" : selected === i ? "wrong" : "") : ""}`}
-                  >
-                    <span style={{ fontWeight: 600, color: "#C0392B", marginRight: "0.5rem" }}>{String.fromCharCode(65 + i)}.</span>
-                    {opt}
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {QUIZ[qi].opts.map((o, i) => (
+                  <button key={i} onClick={() => pick(i)} className={`quiz-opt${sel !== null ? (i === QUIZ[qi].ans ? " correct" : sel === i ? " wrong" : "") : ""}`}>
+                    <span style={{ fontWeight: 700, color: "#A93226", marginRight: 8 }}>{String.fromCharCode(65+i)}.</span>{o}
                   </button>
                 ))}
               </div>
-              {selected !== null && (
-                <div className="mt-4 p-4 rounded-xl fade-in-up" style={{ background: selected === QUIZ_QUESTIONS[quizIdx].correct ? "#eafaf1" : "#fdf2f2", border: `1px solid ${selected === QUIZ_QUESTIONS[quizIdx].correct ? "#27AE60" : "#C0392B"}30` }}>
-                  <p style={{ fontSize: "0.88rem", color: "#444", lineHeight: 1.6 }}>
-                    {selected === QUIZ_QUESTIONS[quizIdx].correct ? "✅ Chính xác! " : "❌ Chưa đúng. "}
-                    {QUIZ_QUESTIONS[quizIdx].explain}
+              {sel !== null && (
+                <div style={{
+                  marginTop: 16, padding: "14px 16px", borderRadius: 10,
+                  background: sel === QUIZ[qi].ans ? "#eafaf1" : "#fdf2f2",
+                  border: `1px solid ${sel === QUIZ[qi].ans ? "#1E6B38" : "#A93226"}30`,
+                }}>
+                  <p style={{ ...S, fontSize: "0.88rem", color: "#333", lineHeight: 1.6 }}>
+                    {sel === QUIZ[qi].ans ? "Chính xác! " : "Chưa đúng. "}{QUIZ[qi].exp}
                   </p>
-                  <button onClick={nextQuestion} className="mt-3 px-5 py-2 rounded-full text-sm font-bold" style={{ background: "#C0392B", color: "white" }}>
-                    {quizIdx + 1 >= QUIZ_QUESTIONS.length ? "Xem kết quả →" : "Câu tiếp →"}
+                  <button onClick={next} style={{
+                    ...S, marginTop: 12, padding: "8px 20px", borderRadius: 20,
+                    background: "#A93226", color: "white", border: "none",
+                    fontWeight: 700, fontSize: "0.88rem", cursor: "pointer",
+                  }}>
+                    {qi+1 >= QUIZ.length ? "Xem kết quả" : "Câu tiếp"}
                   </button>
                 </div>
               )}
@@ -174,85 +125,85 @@ export default function TroChoiPage() {
           </div>
         )}
 
-        {activeGame === "quiz" && quizDone && (
-          <div className="rounded-2xl shadow-lg text-center" style={{ background: "white", padding: "3rem" }}>
-            <div className="text-6xl mb-4">{score >= 5 ? "🏆" : score >= 3 ? "🎉" : "📚"}</div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "2rem", color: "#922B21" }}>
-              {score}/{QUIZ_QUESTIONS.length}
-            </h2>
-            <p style={{ color: "#666", fontSize: "1rem", marginTop: "0.5rem" }}>
-              {score >= 5 ? "Xuất sắc! Bạn nắm vững lịch sử Đổi Mới!" : score >= 3 ? "Tốt! Hãy ôn thêm để nhớ lâu hơn." : "Cần học thêm về giai đoạn Đổi Mới 1986–1991."}
+        {game === "quiz" && done && (
+          <div style={{ background: "white", borderRadius: 16, padding: "48px 32px", textAlign: "center", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}>
+            <div style={{ ...S, fontWeight: 900, fontSize: "3.5rem", color: "#A93226", marginBottom: 8 }}>
+              {score}/{QUIZ.length}
+            </div>
+            <p style={{ ...S, color: "#555", fontSize: "1rem", marginBottom: 24 }}>
+              {score >= 5 ? "Xuất sắc! Bạn nắm vững lịch sử Đổi Mới." : score >= 3 ? "Tốt! Hãy ôn thêm để nhớ lâu hơn." : "Hãy đọc thêm nội dung và thử lại."}
             </p>
-            <div className="flex justify-center gap-4 mt-6">
-              <button onClick={resetQuiz} className="px-5 py-2 rounded-full font-bold" style={{ background: "#C0392B", color: "white" }}>Chơi lại 🔄</button>
-              <button onClick={() => setActiveGame(null)} className="px-5 py-2 rounded-full font-bold" style={{ background: "#27AE60", color: "white" }}>Trò chơi khác</button>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+              <button onClick={reset} style={{ ...S, padding: "10px 24px", borderRadius: 20, background: "#A93226", color: "white", border: "none", fontWeight: 700, cursor: "pointer" }}>
+                Chơi lại
+              </button>
+              <button onClick={() => setGame(null)} style={{ ...S, padding: "10px 24px", borderRadius: 20, background: "#1E6B38", color: "white", border: "none", fontWeight: 700, cursor: "pointer" }}>
+                Trò chơi khác
+              </button>
             </div>
           </div>
         )}
 
-        {/* FILL BLANK */}
-        {activeGame === "fill" && (
-          <div className="rounded-2xl shadow-lg overflow-hidden" style={{ background: "white" }}>
-            <div style={{ background: "linear-gradient(135deg, #1a5c2a, #27AE60)", padding: "1.5rem" }}>
-              <h3 style={{ color: "white", fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "1.3rem" }}>✏️ Điền Vào Chỗ Trống</h3>
-              <p style={{ color: "#d4f5d4", fontSize: "0.85rem", marginTop: "0.25rem" }}>Điền từ/cụm từ thích hợp vào chỗ trống</p>
+        {/* FILL */}
+        {game === "fill" && (
+          <div style={{ background: "white", borderRadius: 16, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}>
+            <div style={{ background: "linear-gradient(135deg, #0F4A1F, #1E6B38)", padding: "20px 24px" }}>
+              <h3 style={{ ...S, fontWeight: 700, fontSize: "1.15rem", color: "white" }}>Điền Vào Chỗ Trống</h3>
+              <p style={{ ...S, color: "rgba(255,255,255,0.65)", fontSize: "0.82rem", marginTop: 4 }}>Điền từ hoặc cụm từ thích hợp vào chỗ trống</p>
             </div>
-            <div style={{ padding: "2rem" }} className="space-y-6">
-              {FILL_BLANKS.map((item, i) => {
-                const isCorrect = fillChecked && fillAnswers[i].trim().toLowerCase() === item.answer.toLowerCase();
-                const isWrong = fillChecked && fillAnswers[i].trim().toLowerCase() !== item.answer.toLowerCase();
-                return (
-                  <div key={i} className="p-4 rounded-xl" style={{ background: fillChecked ? (isCorrect ? "#eafaf1" : "#fdf2f2") : "#f9f0d6", border: `1px solid ${fillChecked ? (isCorrect ? "#27AE60" : "#C0392B") : "#e8d5a3"}30` }}>
-                    <p style={{ color: "#333", lineHeight: 1.7, fontSize: "0.95rem" }}>
-                      <strong>{i + 1}.</strong> {item.sentence.replace("____", "______")}
-                    </p>
-                    <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "4px" }}>💡 Gợi ý: {item.hint}</p>
-                    <input
-                      value={fillAnswers[i]}
-                      onChange={e => {
-                        setFillChecked(false);
-                        const arr = [...fillAnswers]; arr[i] = e.target.value; setFillAnswers(arr);
-                      }}
-                      placeholder="Nhập câu trả lời..."
-                      className="mt-2 w-full"
-                      style={{ border: `2px solid ${fillChecked ? (isCorrect ? "#27AE60" : "#C0392B") : "#e8d5a3"}`, borderRadius: "8px", padding: "0.5rem 0.75rem", fontSize: "0.9rem", background: "white", outline: "none" }}
-                    />
-                    {fillChecked && (
-                      <p style={{ fontSize: "0.8rem", marginTop: "6px", color: isCorrect ? "#27AE60" : "#C0392B" }}>
-                        {isCorrect ? "✅ Chính xác!" : `❌ Đáp án: ${item.answer}`}
+            <div style={{ padding: "24px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                {FILL.map((f, i) => {
+                  const ok = checked && fills[i].trim().toLowerCase() === f.ans.toLowerCase();
+                  const bad = checked && fills[i].trim().toLowerCase() !== f.ans.toLowerCase();
+                  return (
+                    <div key={i} style={{
+                      padding: "16px", borderRadius: 10,
+                      background: checked ? (ok ? "#eafaf1" : "#fdf2f2") : "#f9f0d6",
+                      border: `1.5px solid ${checked ? (ok ? "#1E6B38" : "#A93226") : "#e8d5a3"}30`,
+                    }}>
+                      <p style={{ ...S, color: "#333", lineHeight: 1.7, fontSize: "0.97rem" }}>
+                        <strong>{i+1}.</strong> {f.s}
                       </p>
-                    )}
-                  </div>
-                );
-              })}
-              <div className="flex gap-3 pt-2">
-                <button onClick={() => setFillChecked(true)} className="px-6 py-2 rounded-full font-bold" style={{ background: "#27AE60", color: "white" }}>
-                  Kiểm tra ✓
+                      <p style={{ ...S, color: "#888", fontSize: "0.76rem", marginTop: 4 }}>Gợi ý: {f.hint}</p>
+                      <input value={fills[i]}
+                        onChange={e => { setChecked(false); const a=[...fills]; a[i]=e.target.value; setFills(a); }}
+                        placeholder="Nhập câu trả lời..."
+                        style={{
+                          ...S, marginTop: 10, width: "100%",
+                          border: `2px solid ${checked ? (ok ? "#1E6B38" : "#A93226") : "#e8d5a3"}`,
+                          borderRadius: 8, padding: "8px 12px",
+                          fontSize: "0.92rem", background: "white", outline: "none",
+                        }}
+                      />
+                      {checked && <p style={{ ...S, fontSize: "0.8rem", marginTop: 6, color: ok ? "#1E6B38" : "#A93226", fontWeight: 600 }}>
+                        {ok ? "Chính xác!" : `Đáp án đúng: ${f.ans}`}
+                      </p>}
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ display: "flex", gap: 12, marginTop: 24, alignItems: "center" }}>
+                <button onClick={() => setChecked(true)} style={{ ...S, padding: "10px 24px", borderRadius: 20, background: "#1E6B38", color: "white", border: "none", fontWeight: 700, cursor: "pointer" }}>
+                  Kiểm tra
                 </button>
-                {fillChecked && (
-                  <div className="flex items-center gap-2">
-                    <span style={{ fontSize: "0.9rem", color: "#444" }}>Kết quả: {fillCorrect}/{FILL_BLANKS.length}</span>
-                    <span>{fillCorrect === FILL_BLANKS.length ? "🏆" : "📚"}</span>
-                  </div>
-                )}
-                <button onClick={() => setActiveGame(null)} className="px-5 py-2 rounded-full font-bold ml-auto" style={{ background: "#e8d5a3", color: "#666" }}>
-                  ← Quay lại
+                {checked && <span style={{ ...S, color: "#444", fontSize: "0.9rem" }}>Kết quả: {fillOk}/{FILL.length}</span>}
+                <button onClick={() => setGame(null)} style={{ ...S, marginLeft: "auto", padding: "10px 20px", borderRadius: 20, background: "#e8d5a3", color: "#555", border: "none", fontWeight: 600, cursor: "pointer" }}>
+                  Quay lại
                 </button>
               </div>
             </div>
           </div>
         )}
 
-        {activeGame && (
-          <div className="mt-4 text-center">
-            <button onClick={() => setActiveGame(null)} className="text-sm" style={{ color: "#C0392B" }}>
-              ← Xem tất cả trò chơi
-            </button>
-          </div>
-        )}
+        {game && <div style={{ textAlign: "center", marginTop: 16 }}>
+          <button onClick={() => setGame(null)} style={{ ...S, color: "#A93226", background: "none", border: "none", cursor: "pointer", fontSize: "0.88rem" }}>
+            Xem tất cả trò chơi
+          </button>
+        </div>}
       </div>
 
-      <ChatBox open={showChat} onToggle={() => setShowChat(!showChat)} />
+      <ChatBox open={chat} onToggle={() => setChat(!chat)} />
     </div>
   );
 }
