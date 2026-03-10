@@ -1,22 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const SYSTEM_PROMPT = `Bạn là trợ lý AI chuyên về Lịch sử Đảng Cộng sản Việt Nam giai đoạn 1986–1991 (thời kỳ Đổi Mới).
+const SYSTEM_PROMPT = `Bạn là trợ lý AI chuyên về Lịch sử Đảng Cộng sản Việt Nam .
 
-Nhiệm vụ của bạn là giải đáp các câu hỏi về:
-- Đại hội Đảng lần VI (12/1986) - khởi xướng Đổi Mới
-- Đường lối Đổi Mới toàn diện của Đảng
-- Chính sách kinh tế: Khoán 10, Luật Đầu tư nước ngoài 1987, xóa bỏ bao cấp
-- Chính sách đối ngoại: rút quân khỏi Campuchia, bình thường hóa quan hệ
-- Đổi mới chính trị, dân chủ hóa, đổi mới phong cách lãnh đạo
-- Đại hội Đảng lần VII (6/1991) - Cương lĩnh xây dựng đất nước
-- Kết quả, thành tựu và hạn chế của giai đoạn Đổi Mới đầu tiên
-- Bối cảnh quốc tế: sự sụp đổ của Liên Xô và Đông Âu
+Nhiệm vụ của bạn là giải đáp các câu hỏi về Lịch sử đảng việt nam
 
 Quy tắc trả lời:
 - Trả lời bằng tiếng Việt, rõ ràng, học thuật nhưng dễ hiểu
 - Dựa trên giáo trình Lịch sử Đảng Cộng sản Việt Nam chính thống
 - Giải thích ý nghĩa lịch sử, không chỉ liệt kê sự kiện
-- Câu trả lời vừa phải, khoảng 150-300 từ`;
+- Câu trả lời vừa phải, rõ ràng, lành mạch`
 
 export async function POST(req: NextRequest) {
   try {
@@ -54,7 +46,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           contents: geminiContents,
           generationConfig: {
-            maxOutputTokens: 1024,
+            maxOutputTokens: 2048,
             temperature: 0.7,
           },
         }),
