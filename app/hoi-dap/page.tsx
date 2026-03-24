@@ -25,17 +25,17 @@ import Navbar from "../components/Navbar";
 interface Msg { role: "user" | "assistant"; content: string; }
 
 const SUGGESTED = [
-  "Đổi Mới là gì? Tại sao Đảng phải đổi mới?",
-  "Khoán 10 có tác động thế nào đến nông nghiệp?",
-  "Đại hội VI diễn ra trong bối cảnh nào?",
-  "Vì sao Việt Nam rút quân khỏi Campuchia năm 1989?",
-  "Cương lĩnh 1991 có nội dung cốt lõi gì?",
+  "Thời kỳ quá độ lên CNXH là gì?",
+  "Vì sao nói thời kỳ quá độ có tính chất đan xen?",
+  "Kinh tế nhiều thành phần ở Việt Nam có ý nghĩa gì?",
+  "Việt Nam bỏ qua chế độ tư bản chủ nghĩa như thế nào?",
+  "Công nghiệp hóa, hiện đại hóa có vai trò gì trong thời kỳ quá độ?",
 ];
 
 export default function HoiDapPage() {
   const [msgs, setMsgs] = useState<Msg[]>([{
     role: "assistant",
-    content: "Xin chào! Tôi là trợ lý AI chuyên về Lịch sử Đảng Cộng sản Việt Nam ",
+    content: "Xin chào! Tôi là trợ lý AI chuyên về chủ đề Thời kì quá độ lên chủ nghĩa xã hội ở Việt Nam. Bạn có thể hỏi tôi bất cứ điều gì liên quan đến lịch sử, chính sách, hay các khía cạnh khác của thời kỳ này. Hãy bắt đầu bằng cách đặt câu hỏi hoặc chọn một trong những gợi ý dưới đây!",
   }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -79,7 +79,7 @@ export default function HoiDapPage() {
             Hỏi Đáp Lịch Sử
           </h1>
           <p style={{ ...F, color: "rgba(255,255,255,0.65)", fontSize: "0.95rem", marginTop: 10 }}>
-            Đặt câu hỏi về Đảng và giai đoạn Đổi Mới 1986–1991
+            Đặt câu hỏi về thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam
           </p>
         </div>
       </div>
@@ -140,7 +140,7 @@ export default function HoiDapPage() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === "Enter" && send(input)}
-              placeholder="Đặt câu hỏi về lịch sử Đổi Mới..."
+              placeholder="Hỏi về thời kỳ quá độ lên CNXH..."
               disabled={loading}
               style={{
                 ...F, flex: 1, border: "1.5px solid #ddd5be",

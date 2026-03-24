@@ -84,7 +84,7 @@ function HeroBackground() {
         onError={() => setVideoFailed(true)}
         style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", zIndex:0 }}
       >
-        <source src="/hero.mp4" type="video/mp4" onError={() => setVideoFailed(true)} />
+        <source src="/mln.mp4" type="video/mp4" onError={() => setVideoFailed(true)} />
       </video>
     );
   }
@@ -95,52 +95,63 @@ function HeroBackground() {
 
 const MILESTONES = [
   {
-    year: "1986",
-    title: "Đại hội Đảng lần VI",
-    sub: "Khởi xướng Đổi Mới",
-    image: "/pictures/pic1.png",
-    desc: "Tháng 12/1986, Đại hội VI chính thức mở ra công cuộc đổi mới toàn diện với tinh thần nhìn thẳng vào sự thật, đánh giá đúng thực trạng đất nước.",
+    year: "Đoàn kết là sức mạnh",
+    title: "Đại đoàn kết",
+    image: "/pictures/pic11a.png",
+    desc: "Lấy cảm hứng từ tư tưởng đại đoàn kết dân tộc, thiết kế thể hiện sự gắn kết giữa các tầng lớp nhân dân trong cùng một mục tiêu chung. Trong bối cảnh thời kỳ quá độ, khi đất nước đối mặt với nhiều khó khăn về kinh tế và cơ cấu xã hội, tinh thần đoàn kết trở thành nền tảng để huy động sức mạnh tổng hợp. Mẫu sản phẩm không chỉ mang ý nghĩa lịch sử mà còn phản ánh một nguyên lý phát triển bền vững của Việt Nam.",
     accent: "#B5261E",
   },
   {
-    year: "1987",
-    title: "Luật Đầu tư nước ngoài",
-    sub: "Mở cửa kinh tế",
-    image: "/pictures/pic2.png",
-    desc: "Luật Đầu tư nước ngoài đầu tiên được ban hành, tạo nền tảng pháp lý thu hút vốn FDI, công nghệ và kỹ năng quản lý hiện đại.",
+    year: "Đoàn kết là sức mạnh",
+    title: "Sức mạnh dân tộc",
+    image: "/pictures/pic12.png",
+    desc: "Thiết kế tái hiện hình ảnh con người Việt Nam trong cả chiến đấu và lao động, biểu trưng cho sức mạnh nội sinh của dân tộc. Đây là nguồn lực quan trọng giúp Việt Nam lựa chọn con đường phát triển rút ngắn, không phụ thuộc hoàn toàn vào các yếu tố bên ngoài. Mẫu móc khóa thể hiện sự kết hợp giữa truyền thống lịch sử, ý chí tự cường và khả năng thích ứng – những yếu tố then chốt trong thời kỳ quá độ.",
     accent: "#D4982A",
   },
   {
-    year: "1988",
-    title: "Khoán 10",
-    sub: "Giải phóng nông nghiệp",
-    image: "/pictures/pic3.png",
-    desc: "Nghị quyết 10 giao quyền sử dụng đất lâu dài cho hộ nông dân. Việt Nam chuyển từ thiếu lương thực sang xuất khẩu gạo trong vòng một năm.",
+    year: "Biểu tượng Đảng Cộng Sản Việt Nam",
+    title: "Biểu tượng Đảng",
+    image: "/pictures/pic13.png",
+    desc: "Thiết kế khắc họa biểu tượng búa liềm – đại diện cho Đảng Cộng sản Việt Nam, lực lượng lãnh đạo toàn diện trong sự nghiệp cách mạng. Trong thời kỳ quá độ lên chủ nghĩa xã hội, vai trò của Đảng không chỉ định hướng chính trị mà còn dẫn dắt quá trình phát triển kinh tế, xã hội và văn hóa. Mẫu móc khóa này nhấn mạnh tính tất yếu của sự lãnh đạo tập trung, thống nhất, là yếu tố cốt lõi bảo đảm cho con đường phát triển rút ngắn của Việt Nam.",
     accent: "#1B5E35",
   },
   {
-    year: "1989",
-    title: "Rút quân khỏi Campuchia",
-    sub: "Bình thường hóa quan hệ",
-    image: "/pictures/pic4.jpg",
-    desc: "Hoàn thành rút toàn bộ quân tình nguyện, mở đường bình thường hóa quan hệ với ASEAN, phương Tây và Trung Quốc.",
+    year: "Đội quân tóc dài",
+    title: "Lực lượng đấu tranh chính trị đặc biệt của phụ nữ miền Nam Việt Nam",
+    image: "/pictures/pic14.png",
+    desc: "Hình tượng “Đội quân tóc dài” đại diện cho vai trò của quần chúng nhân dân, đặc biệt là phụ nữ Việt Nam trong lịch sử cách mạng. Không chỉ tham gia chiến đấu, lực lượng này còn góp phần vào công tác hậu cần, chính trị và xã hội. Trong thời kỳ quá độ, vai trò của nhân dân tiếp tục được khẳng định như một chủ thể trung tâm của phát triển. Thiết kế mang ý nghĩa tôn vinh sự đóng góp toàn diện của con người trong tiến trình xây dựng đất nước.",
     accent: "#132D52",
   },
   {
-    year: "1991",
-    title: "Đại hội Đảng lần VII",
-    sub: "Hoàn thiện đường lối",
-    image: "/pictures/pic5.png",
-    desc: "Đại hội VII thông qua Cương lĩnh xây dựng đất nước — văn kiện nền tảng định hướng con đường phát triển lâu dài của dân tộc.",
+    year: "Đường Trường Sơn 559",
+    title: "Tuyến chi viện chiến lược huyết mạch từ miền Bắc vào miền Nam trong chiến tranh Việt Nam",
+    image: "/pictures/pic15.png",
+    desc: "Lấy cảm hứng từ tuyến đường Trường Sơn – hệ thống chi viện chiến lược trong kháng chiến, mẫu thiết kế thể hiện tinh thần bền bỉ, tự lực và tổ chức hiệu quả. Đây là minh chứng rõ nét cho khả năng huy động và phân bổ nguồn lực trong điều kiện khó khăn. Trong bối cảnh thời kỳ quá độ, tinh thần đó được chuyển hóa thành nền tảng cho việc xây dựng mô hình phát triển độc lập, sáng tạo và mang tính rút ngắn.",
+    accent: "#B5261E",
+  },
+  {
+    year: "Giải phóng 1975",
+    title: "Ngày Giải phóng miền Nam, thống nhất đất nước",
+    image: "/pictures/pic16.png",
+    desc: "Thiết kế tái hiện hình ảnh biểu tượng của ngày 30/4/1975 – cột mốc lịch sử đánh dấu thắng lợi hoàn toàn của cuộc kháng chiến chống Mỹ và sự giải phóng miền Nam. Đây không chỉ là một chiến thắng quân sự, mà còn là bước ngoặt mang tính quyết định, tạo tiền đề để Việt Nam bước vào thời kỳ quá độ lên chủ nghĩa xã hội trong điều kiện hòa bình và thống nhất. Mẫu móc khóa thể hiện sự chuyển mình từ đấu tranh giải phóng sang xây dựng và phát triển đất nước, đồng thời phản ánh khát vọng độc lập, tự chủ và con đường phát triển rút ngắn của dân tộc.",
     accent: "#B5261E",
   },
 ];
 
+const MILESTONE_MODEL_LINKS = [
+  "https://www.pacdora.com/share?filter_url=ps5ou9m77i",
+  "https://www.pacdora.com/share?filter_url=ps9uih6uct",
+  "https://www.pacdora.com/share?filter_url=psyx9s2ew2",
+  "https://www.pacdora.com/share?filter_url=ps4sf5034n",
+  "https://www.pacdora.com/share?filter_url=psnjkq8xi6",
+  "https://www.pacdora.com/share?filter_url=psvepsysk0",
+];
+
 const STATS = [
-  { num: "1,4 triệu tấn", label: "Gạo xuất khẩu mỗi năm", note: "Từ thiếu đói đến xuất khẩu (1989)" },
-  { num: "~6%",           label: "Tăng trưởng GDP bình quân", note: "Giai đoạn 1987–1991" },
-  { num: "200+",          label: "Dự án FDI được cấp phép", note: "Sau Luật Đầu tư nước ngoài 1987" },
-  { num: "5 năm",         label: "Từ khủng hoảng đến ổn định", note: "Thành quả giai đoạn Đổi Mới đầu tiên" },
+  { num: "8,02%", label: "Tăng trưởng GDP năm 2022", note: "Thuộc top đầu thế giới sau đại dịch" },
+  { num: "16 FTA",           label: "Hiệp định thương mại tự do", note: "Hội nhập sâu rộng nhất khu vực Đông Nam Á" },
+  { num: "Top 20",          label: "Nền kinh tế thương mại lớn nhất", note: "Sau hơn 35 năm Đổi Mới và hội nhập" },
+  { num: "2045",         label: "Tầm nhìn phát triển", note: "Việt Nam trở thành nước phát triển, thu nhập cao" },
 ];
 
 const NAV_LINKS = [
@@ -274,7 +285,7 @@ export default function Home() {
             letterSpacing: "0.3em", textTransform: "uppercase",
             marginBottom: 24,
           }}>
-            Lịch Sử Đảng Cộng Sản Việt Nam
+            CHỦ NGHĨA XÃ HỘI KHOA HỌC
           </p>
 
           {/* Tiêu đề lớn */}
@@ -287,7 +298,7 @@ export default function Home() {
             textShadow: "0 6px 40px rgba(0,0,0,0.5)",
             marginBottom: 10,
           }}>
-            Thời Kỳ
+            Việt Nam
           </h1>
           <h1 className="anim-up-2" style={{
             fontWeight: 900,
@@ -298,7 +309,7 @@ export default function Home() {
             textShadow: "0 6px 40px rgba(0,0,0,0.4)",
             marginBottom: 28,
           }}>
-            Đổi Mới
+            Thời kỳ Quá Độ
           </h1>
 
           {/* Năm */}
@@ -309,7 +320,7 @@ export default function Home() {
             letterSpacing: "0.3em",
             marginBottom: 20,
           }}>
-            1986 — 1991
+            Đặc điểm - Con Đường - Rút ngắn
           </p>
 
           {/* Đường kẻ vàng */}
@@ -325,8 +336,7 @@ export default function Home() {
             color: "rgba(255,255,255,0.72)",
             lineHeight: 1.85, maxWidth: 560, margin: "0 auto 44px",
           }}>
-            Giai đoạn bản lề trong lịch sử dân tộc — Đảng khởi xướng công cuộc
-            đổi mới toàn diện, đưa đất nước thoát khỏi khủng hoảng, hội nhập thế giới.
+            Quá trình xây dựng chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa — con đường tất yếu, khách quan và đầy thách thức mà Đảng Cộng sản Việt Nam đã kiên định lựa chọn.
           </p>
 
           {/* Nút CTA */}
@@ -357,8 +367,8 @@ export default function Home() {
 
         {/* Mũi tên cuộn xuống */}
         <div style={{
-          position: "absolute", bottom: 32, left: "50%",
-          transform: "translateX(-50%)", zIndex: 2, textAlign: "center",
+          position: "absolute", bottom: 32, left: 0, width: "100%",
+          zIndex: 2, textAlign: "center",
           animation: "bounce-down 2.2s ease-in-out infinite",
         }}>
           <p style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em", marginBottom: 6 }}>
@@ -408,13 +418,13 @@ export default function Home() {
               fontWeight: 600, fontSize: "0.72rem",
               color: "#B5261E", letterSpacing: "0.25em",
               textTransform: "uppercase", marginBottom: 14,
-            }}>Hành Trình Lịch Sử</p>
+            }}>Sản Phẩm Sáng Tạo</p>
             <h2 style={{
               fontWeight: 800,
               fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
               color: "#1C1008", lineHeight: 1.15,
             }}>
-              Dòng Thời Gian Đổi Mới
+              Móc Khóa
             </h2>
             <div style={{
               width: 48, height: 3, background: "#D4982A",
@@ -455,13 +465,8 @@ export default function Home() {
                     }}>{m.year}</div>
                     <h3 style={{
                       fontWeight: 800, fontSize: "1.3rem",
-                      color: "#1C1008", lineHeight: 1.25, marginBottom: 4,
+                      color: "#1C1008", lineHeight: 1.25, marginBottom: 12,
                     }}>{m.title}</h3>
-                    <p style={{
-                      fontWeight: 600, fontSize: "0.82rem",
-                      color: m.accent, marginBottom: 12,
-                      textTransform: "uppercase", letterSpacing: "0.05em",
-                    }}>{m.sub}</p>
                     <p style={{ fontWeight: 400, fontSize: "0.93rem", color: "#5A4A30", lineHeight: 1.8 }}>
                       {m.desc}
                     </p>
@@ -516,16 +521,31 @@ export default function Home() {
                         color: m.accent, opacity: 0.12,
                         lineHeight: 1, marginBottom: -12,
                       }}>{m.year}</div>
-                      <div style={{ fontWeight: 700, fontSize: "0.88rem", color: m.accent }}>
-                        {m.sub}
-                      </div>
-                      <Link href="/noi-dung" style={{
-                        display: "inline-block", marginTop: 14,
-                        fontWeight: 700, fontSize: "0.82rem",
-                        color: m.accent, textDecoration: "none",
-                        borderBottom: `1px solid ${m.accent}`,
-                        paddingBottom: 1,
-                      }}>Đọc thêm</Link>
+                      <a
+                        href={MILESTONE_MODEL_LINKS[i]}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 8,
+                          marginTop: 16,
+                          padding: "11px 18px",
+                          fontWeight: 800,
+                          fontSize: "0.84rem",
+                          letterSpacing: "0.04em",
+                          textTransform: "uppercase",
+                          color: "#FFFFFF",
+                          textDecoration: "none",
+                          borderRadius: 10,
+                          border: `1px solid ${m.accent}`,
+                          background: `linear-gradient(135deg, ${m.accent}, #1C1008)`,
+                          boxShadow: `0 10px 22px ${m.accent}45`,
+                        }}
+                      >
+                        Xem mô hình 3D
+                        <span style={{ fontSize: "1rem", lineHeight: 1 }}>↗</span>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -549,7 +569,7 @@ export default function Home() {
               {
                 href: "/noi-dung",
                 title: "Nội Dung Học Thuật",
-                desc: "Giáo trình lịch sử Đảng giai đoạn Đổi Mới 1986–1991 theo chương trình chính thức.",
+                desc: "Việt Nam Trong Thời Kỳ Quá Độ: Đặc Điểm & Con Đường Phát Triển Rút Ngắn.",
                 accent: "#B5261E",
               },
               {
@@ -561,7 +581,7 @@ export default function Home() {
               {
                 href: "/hoi-dap",
                 title: "Hỏi Đáp Trí Tuệ Nhân Tạo",
-                desc: "Đặt câu hỏi về lịch sử Đảng giai đoạn này, nhận giải đáp chi tiết từ AI ngay lập tức.",
+                desc: "Đặt câu hỏi về thời kỳ quá độ lên CNXH của Việt Nam, nhận giải đáp chi tiết từ AI ngay lập tức.",
                 accent: "#132D52",
               },
             ].map((c, i) => (
@@ -598,10 +618,10 @@ export default function Home() {
       <footer style={{ background: "#1C1008", padding: "56px 0 36px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px", textAlign: "center" }}>
           <div style={{ fontWeight: 900, fontSize: "1.1rem", color: "#D4982A", marginBottom: 6, letterSpacing: "0.05em" }}>
-            LỊCH SỬ ĐẢNG CỘNG SẢN VIỆT NAM
+            CNXH KHOA HỌC
           </div>
           <p style={{ fontWeight: 400, color: "#5A4A30", fontSize: "0.82rem", marginBottom: 28 }}>
-            Giai đoạn Đổi Mới 1986–1991 · Tài liệu học tập môn Lịch sử Đảng
+            Giai đoạn quá độ lên CNXH ở Việt Nam · Tài liệu học tập môn MLN131
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: 36, flexWrap: "wrap", marginBottom: 32 }}>
             {NAV_LINKS.map(l => (
@@ -613,7 +633,7 @@ export default function Home() {
           </div>
           <div style={{ height: 1, background: "#2C1C08", marginBottom: 20 }} />
           <p style={{ fontWeight: 400, fontSize: "0.72rem", color: "#3A2A18" }}>
-            Tài liệu học tập môn Lịch sử Đảng Cộng sản Việt Nam · Dành cho sinh viên đại học
+            Tài liệu học tập môn MLN131 · Dành cho sinh viên đại học
           </p>
         </div>
       </footer>

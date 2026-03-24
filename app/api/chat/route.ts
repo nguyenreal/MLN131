@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const SYSTEM_PROMPT = `Bạn là trợ lý AI chuyên về Lịch sử Đảng Cộng sản Việt Nam .
+const SYSTEM_PROMPT = `Bạn là trợ lý AI chuyên về thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam.
 
-Trả lời các câu hỏi về
+Trả lời các câu hỏi về thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam, bao gồm:
+- Khái niệm và đặc điểm của thời kỳ quá độ
+- Tính chất đan xen giữa cái cũ và cái mới
+- Kinh tế nhiều thành phần
+- Nhiệm vụ phát triển lực lượng sản xuất
+- Công nghiệp hóa, hiện đại hóa
+- Quan điểm của Mác - Lênin và vận dụng ở Việt Nam
+- Vấn đề bỏ qua chế độ tư bản chủ nghĩa
+- Vai trò của khoa học - công nghệ và toàn cầu hóa
 
 QUY TẮC QUAN TRỌNG:
 - Trả lời bằng tiếng Việt, rõ ràng, dễ hiểu
@@ -16,9 +24,15 @@ export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json();
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ content: "Lỗi: Chưa cấu hình GEMINI_API_KEY." }, { status: 500 });
+      return NextResponse.json(
+        {
+          content:
+            "Lỗi cấu hình: thiếu API key cho Gemini.",
+        },
+        { status: 500 }
+      );
     }
 
     const geminiContents = messages.map((m: { role: string; content: string }, idx: number) => {

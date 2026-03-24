@@ -6,7 +6,7 @@ interface Msg { role: "user" | "assistant"; content: string; }
 export default function ChatBox({ open, onToggle }: { open: boolean; onToggle: () => void }) {
   const [msgs, setMsgs] = useState<Msg[]>([{
     role: "assistant",
-    content: "Xin chào! Tôi là trợ lý AI về Lịch sử Đảng giai đoạn 1986–1991. Bạn có thể hỏi tôi về Đổi Mới, Khoán 10, các Đại hội Đảng và nhiều chủ đề khác.",
+    content: "Xin chào! Tôi là trợ lý AI về thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam. Bạn có thể hỏi tôi bất cứ điều gì liên quan đến lịch sử, chính sách, hay các khía cạnh khác của thời kỳ này. Hãy bắt đầu bằng cách đặt câu hỏi!",
   }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -63,7 +63,7 @@ export default function ChatBox({ open, onToggle }: { open: boolean; onToggle: (
               Trợ Lý Lịch Sử
             </div>
             <div style={{ ...F, fontSize: "0.72rem", color: "rgba(255,255,255,0.55)" }}>
-              Đảng CSVN · Giai đoạn 1986–1991
+              Đảng CSVN · Thời kỳ quá độ lên CNXH
             </div>
           </div>
 
