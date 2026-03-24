@@ -102,7 +102,7 @@ const MILESTONES = [
     accent: "#B5261E",
   },
   {
-    year: "Đoàn kết là sức mạnh",
+    year: "Sức mạnh dân tộc",
     title: "Sức mạnh dân tộc",
     image: "/pictures/pic12.png",
     desc: "Thiết kế tái hiện hình ảnh con người Việt Nam trong cả chiến đấu và lao động, biểu trưng cho sức mạnh nội sinh của dân tộc. Đây là nguồn lực quan trọng giúp Việt Nam lựa chọn con đường phát triển rút ngắn, không phụ thuộc hoàn toàn vào các yếu tố bên ngoài. Mẫu móc khóa thể hiện sự kết hợp giữa truyền thống lịch sử, ý chí tự cường và khả năng thích ứng – những yếu tố then chốt trong thời kỳ quá độ.",

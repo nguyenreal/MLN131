@@ -3,8 +3,8 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Lịch Sử Đảng Cộng Sản Việt Nam 1986–1991",
-  description: "Tìm hiểu lịch sử Đảng Cộng sản Việt Nam giai đoạn Đổi Mới 1986–1991",
+  title: "Việt Nam Thời Kỳ Quá Độ — Đặc Điểm & Con Đường Phát Triển Rút Ngắn",
+  description: "Khám phá đặc điểm nổi bật và các yếu tố then chốt để Việt Nam rút ngắn thời kỳ quá độ lên chủ nghĩa xã hội — sản phẩm sáng tạo môn CNXH Khoa Học.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
